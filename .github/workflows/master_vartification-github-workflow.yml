@@ -4,10 +4,8 @@
 name: Build and deploy Node.js app to Azure Web App - vartification-github-workflow
 
 on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+  pull_request:
+    types: synchronize
 
 jobs:
   build:
@@ -32,6 +30,21 @@ jobs:
         with:
           name: node-app
           path: .
+      
+      - name: Create comments
+        run: |
+          cat << EOF > comments
+          1st
+          2nd
+          3rd
+          EOF
+
+      - name: Post comments
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          URL: ${{ github.event.pull_request.html_url }}
+        run:
+          gh pr comment -F ./comments "${URL}"
 
   deploy:
     runs-on: ubuntu-latest
