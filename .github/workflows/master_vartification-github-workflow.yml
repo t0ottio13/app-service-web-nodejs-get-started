@@ -30,7 +30,7 @@ jobs:
           id: build
           run: |
             npm install
-            npm run build --if-present > build.log
+            npm run build --if-present
             npm run test --if-present
 
         - name: Upload artifact for deployment job
@@ -38,11 +38,13 @@ jobs:
           with:
             name: node-app
             path: .
-
-        - name: output-log-on-fail
-          run: |
-              cat ./build.log
         
+        - name: Print step result
+          uses: actions/github-script@v6
+          with:
+            script: |
+              core.info(`Step result is: ${{steps.build.outputs.response}}`)
+
         - name: Comment PullRequest
           if: github.ref != 'refs/heads/master'
           uses: JoseThen/comment-pr@v1.1.1
