@@ -38,14 +38,12 @@ jobs:
           name: node-app
           path: .
       
+      if: github.ref != 'refs/heads/master'
       - name: Comment PullRequest
         uses: JoseThen/comment-pr@v1.1.1
         with:
           comment: 'This Comment'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Comment Use quipper
-        uses: quipper/comment-failure-action@v0.1.1
 
   deploy:
     if: github.ref == 'refs/heads/master'
