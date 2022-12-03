@@ -42,7 +42,7 @@ jobs:
         - name: Job failer loging
           uses: actions/github-script@v6
           with:
-            script: gh run view --job JOB_ID --log-failed
+            script: gh run view --job result --log-failed
             result-encoding: string
 
         - name: Get result
