@@ -69,8 +69,8 @@ jobs:
           package: .
       
       - name: Comment PullRequest
-          if: github.ref != 'refs/heads/master'
-          uses: JoseThen/comment-pr@v1.1.1
-          with:
-            comment: 'This Comment ${{ steps.deploy-to-webapp.outputs.webapp-url }}'
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref != 'refs/heads/master'
+        uses: JoseThen/comment-pr@v1.1.1
+        with:
+          comment: 'This Comment ${{ steps.deploy-to-webapp.outputs.webapp-url }}'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
