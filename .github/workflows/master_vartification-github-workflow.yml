@@ -15,6 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  id: result
   build:
     runs-on: ubuntu-latest
 
@@ -27,7 +28,7 @@ jobs:
           node-version: '16.x'
 
       - name: npm install, build, and test
-        id: set-result
+        
         run: |
           npm install
           npm run build --if-present
