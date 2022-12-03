@@ -15,8 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  result:
-    build:
+  build:
       runs-on: ubuntu-latest
 
       steps:
@@ -42,7 +41,7 @@ jobs:
         - name: Job failer loging
           uses: actions/github-script@v6
           with:
-            script: gh run view --job result --log-failed
+            script: gh run view --job build --log-failed
             result-encoding: string
 
         - name: Get result
@@ -54,6 +53,7 @@ jobs:
           with:
             comment: 'This Comment'
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
 
   deploy:
     if: github.ref == 'refs/heads/master'
