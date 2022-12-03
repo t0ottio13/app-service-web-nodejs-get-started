@@ -39,6 +39,7 @@ jobs:
           path: .
       
       - name: Comment PullRequest
+        if: github.ref != 'refs/heads/master'
         uses: JoseThen/comment-pr@v1.1.1
         with:
           comment: 'This Comment'
