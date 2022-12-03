@@ -37,6 +37,12 @@ jobs:
         with:
           name: node-app
           path: .
+      
+      - name: Comment PullRequest
+        uses: JoseThen/comment-pr@v1.1.1
+        with:
+          comment: 'This PR is the bees knees!'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     if: github.ref == 'refs/heads/main'
