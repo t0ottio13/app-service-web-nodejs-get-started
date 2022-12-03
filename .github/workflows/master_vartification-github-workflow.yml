@@ -15,40 +15,45 @@ on:
   workflow_dispatch:
 
 jobs:
-  id: result
-  build:
-    runs-on: ubuntu-latest
+  result:
+    build:
+      runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+      steps:
+        - uses: actions/checkout@v2
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
+        - name: Set up Node.js version
+          uses: actions/setup-node@v1
+          with:
+            node-version: '16.x'
 
-      - name: npm install, build, and test
+        - name: npm install, build, and test
+          run: |
+            npm install
+            npm run build --if-present
+            npm run test --if-present
+
+        - name: Upload artifact for deployment job
+          uses: actions/upload-artifact@v2
+          with:
+            name: node-app
+            path: .
         
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+        - name: Job failer loging
+          uses: actions/github-script@v6
+          with:
+            script: gh run view --job JOB_ID --log-failed
+            result-encoding: string
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: node-app
-          path: .
-
-      - name: Get result
-        run: echo "${{steps.set-result.outputs.result}}"
-      
-      - name: Comment PullRequest
-        if: github.ref != 'refs/heads/master'
-        uses: JoseThen/comment-pr@v1.1.1
-        with:
-          comment: 'This Comment'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Get result
+          run: echo "${{steps.set-result.outputs.result}}"
+        
+        - name: Comment PullRequest
+          if: github.ref != 'refs/heads/master'
+          uses: JoseThen/comment-pr@v1.1.1
+          with:
+            comment: 'This Comment'
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     if: github.ref == 'refs/heads/master'
