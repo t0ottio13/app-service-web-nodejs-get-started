@@ -38,8 +38,6 @@ jobs:
           name: node-app
           path: .
       
-    if: github.ref != 'refs/heads/master'
-    steps:
       - name: Comment PullRequest
         uses: JoseThen/comment-pr@v1.1.1
         with:
