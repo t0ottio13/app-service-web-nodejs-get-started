@@ -27,22 +27,19 @@ jobs:
           node-version: '16.x'
 
       - name: npm install, build, and test
+        id: set-result
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
+        with:
+          result-encoding: string
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
           path: .
-      
-      - uses: actions/github-script@v6
-        id: set-result
-        with:
-          script: return "Hello!"
-          result-encoding: string
 
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
