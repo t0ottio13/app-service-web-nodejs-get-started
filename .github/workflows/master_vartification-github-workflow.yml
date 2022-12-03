@@ -41,7 +41,7 @@ jobs:
 
         - name: output-log-on-fail
           run: |
-              cat ./backend.log
+              cat ./build.log
         
         - name: Comment PullRequest
           if: github.ref != 'refs/heads/master'
