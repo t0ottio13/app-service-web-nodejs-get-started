@@ -40,7 +40,6 @@ jobs:
             path: .
 
         - name: output-log-on-fail
-          if: failure()
           run: |
               cat ./backend.log
         
