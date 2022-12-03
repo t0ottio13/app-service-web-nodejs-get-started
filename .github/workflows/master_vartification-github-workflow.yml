@@ -41,7 +41,7 @@ jobs:
       - name: Comment PullRequest
         uses: JoseThen/comment-pr@v1.1.1
         with:
-          comment: 'This PR is the bees knees!'
+          comment: 'This Comment'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
