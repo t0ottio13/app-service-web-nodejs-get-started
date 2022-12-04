@@ -38,12 +38,6 @@ jobs:
           with:
             name: node-app
             path: .
-        
-        - name: Print step result
-          uses: actions/github-script@v6
-          with:
-            script: |
-              core.info(`Step result is: ${{steps.build.outputs.response}}`)
 
   deploy:
     if: github.ref != 'refs/heads/master'
@@ -69,8 +63,7 @@ jobs:
           package: .
       
       - name: Comment PullRequest
-        if: github.ref != 'refs/heads/master'
         uses: JoseThen/comment-pr@v1.1.1
         with:
-          comment: 'This Comment ${{ steps.deploy-to-webapp.outputs.webapp-url }}'
+          comment: 'Preview ${{ steps.deploy-to-webapp.outputs.webapp-url }}'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
